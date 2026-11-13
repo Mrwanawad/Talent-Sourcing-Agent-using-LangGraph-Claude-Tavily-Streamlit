@@ -86,7 +86,7 @@ if state and "final" not in st.session_state:
         with st.container(border=True):
             left, right = st.columns([3, 2])
             with left:
-                st.markdown(f"**{i + 1}. {p.name}** · {p.current_title} · {p.company} · {p.city}")
+                st.markdown(" · ".join([f"**{i + 1}. {p.name}**", *(x for x in (p.current_title, p.company, p.city) if x)]))
                 st.caption(
                     f"Fit {c.fit_score:.2f} (judge {c.judge_score:.2f}, embedding {c.embedding_similarity:.2f}) · [profile]({p.profile_url})"
                 )

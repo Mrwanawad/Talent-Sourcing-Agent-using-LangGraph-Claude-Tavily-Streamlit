@@ -2,7 +2,10 @@
 
 _Last updated: 2026-11-13_
 
-## Status: DONE, on GitHub (public). Streamlit Cloud deploy is done by Mrwan (steps below).
+## Status: DONE and LIVE on Streamlit Community Cloud
+
+- App: https://talent-sourcing-agent-using-langgraph-claude-tavily-app-wmyt3y.streamlit.app
+- First cloud run (2026-11-13): 17 hits, 10 profiles, 2 duplicates removed against Neon, 8 shortlisted, 7 fetch failures.
 
 - Repo: https://github.com/Mrwanawad/Talent-Sourcing-Agent-using-LangGraph-Claude-Tavily-Streamlit
 - Commits authored by Mrwan Awad only, no Claude attribution.
@@ -34,7 +37,7 @@ _Last updated: 2026-11-13_
 | 16 | Evals: extraction, ranking, calibrate | done |
 | 17 | CI (`.github/workflows/ci.yml`) | pushed, see repo Actions |
 | 18 | Git repo + GitHub push (public) | done |
-| 19 | Streamlit Community Cloud deploy | Mrwan does it (steps below) |
+| 19 | Streamlit Community Cloud deploy | done (live URL above) |
 
 ## Latest results
 
@@ -61,6 +64,6 @@ _Last updated: 2026-11-13_
 
 ## Next steps
 
-1. Deploy on Streamlit Cloud (above) and run one brief from the UI.
+1. Check the 7 cloud fetch failures (likely DuckDuckGo timeouts or sites blocking Streamlit IPs); a Tavily key removes both.
 2. Optional: Tavily key for better search; Langfuse keys for traces; Gemini price env vars for cost.
 3. Collect approve/reject decisions from real runs, then `calibrate`.
