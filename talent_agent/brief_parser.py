@@ -20,6 +20,11 @@ Rules:
 
 LOCATION_ALIASES = {
     "cairo": ["Cairo", "New Cairo", "Giza", "6th of October", "Sheikh Zayed", "Nasr City", "القاهرة"],
+    "new cairo": ["New Cairo", "Fifth Settlement", "Tagamoa", "Cairo", "القاهرة الجديدة"],
+    "sheikh zayed": ["Sheikh Zayed", "6th of October", "Giza", "Cairo", "الشيخ زايد"],
+    "6th of october": ["6th of October", "Sheikh Zayed", "Giza", "Cairo", "أكتوبر"],
+    "new administrative capital": ["New Administrative Capital", "New Capital", "New Cairo", "Cairo", "العاصمة الإدارية"],
+    "north coast": ["North Coast", "Sahel", "El Alamein", "Alexandria", "الساحل الشمالي"],
     "alexandria": ["Alexandria", "Alex", "الإسكندرية"],
     "dubai": ["Dubai", "UAE", "دبي"],
     "riyadh": ["Riyadh", "KSA", "الرياض"],

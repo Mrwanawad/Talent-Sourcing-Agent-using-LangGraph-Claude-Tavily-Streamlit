@@ -51,12 +51,14 @@ class State(TypedDict, total=False):
     candidates: list[ScoredCandidate]
     report: SearchReport
     run_id: int
+    cost_start: float
     excel: bytes
     ats_csv: bytes
 
 
 def n_parse(s: State) -> dict[str, Any]:
-    return {"criteria": parse_brief(s["brief"]), "report": SearchReport()}
+    # meter is process-wide (Streamlit serves many runs); remember where this run started
+    return {"cost_start": meter.usd, "criteria": parse_brief(s["brief"]), "report": SearchReport()}
 
 
 def n_plan(s: State) -> dict[str, Any]:
@@ -111,7 +113,7 @@ def n_approval(s: State) -> dict[str, Any]:
 
 def n_export(s: State) -> dict[str, Any]:
     report = s["report"]
-    report.token_cost_usd = meter.usd
+    report.token_cost_usd = round(meter.usd - s.get("cost_start", 0.0), 6)
     run_id = storage.save_run(s["brief"], report, s["candidates"])
     flush()
     return {
@@ -153,9 +155,20 @@ def build_graph(checkpointer=None):
 @observe(name="talent_sourcing.run")
 def start(graph, brief: HiringBrief, company: str, thread_id: str) -> dict:
     """Runs until the approval interrupt. Returns state snapshot values."""
+    for _ in stream_stages(graph, brief, company, thread_id):
+        pass
+    return snapshot(graph, thread_id)
+
+
+def stream_stages(graph, brief: HiringBrief, company: str, thread_id: str):
+    """Yields each node name as it finishes, so the UI can show live progress. Stops at the approval interrupt."""
     cfg = {"configurable": {"thread_id": thread_id}}
-    graph.invoke({"brief": brief, "company": company}, cfg)
-    return graph.get_state(cfg).values
+    for chunk in graph.stream({"brief": brief, "company": company}, cfg, stream_mode="updates"):
+        yield from (node for node in chunk if not node.startswith("__"))
+
+
+def snapshot(graph, thread_id: str) -> dict:
+    return graph.get_state({"configurable": {"thread_id": thread_id}}).values
 
 
 def resume(graph, thread_id: str, decisions: dict[str, dict]) -> dict:

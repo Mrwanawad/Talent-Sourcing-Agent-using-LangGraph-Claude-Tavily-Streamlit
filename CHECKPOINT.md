@@ -13,7 +13,7 @@ _Last updated: 2026-11-13_
 - LLM: Gemini `gemini-3.1-flash-lite` (free tier, key in `.env` as `GEMINI_API_KEY`). Claude is still supported and wins when `ANTHROPIC_API_KEY` is set (`LLM_PROVIDER=auto`). No Anthropic key available.
 - Search: DuckDuckGo (free). Tavily/Exa used automatically if keys are added.
 - DB: Neon project `Nawy-Talent-Sourcing-Agent` (id `still-fire-15428922`, aws-eu-central-1, org `org-restless-pond-36388009`), URL in `.env` `DATABASE_URL`.
-- `.streamlit/secrets.toml` (gitignored) already holds the real values to paste into Streamlit Cloud.
+- Local `.streamlit/secrets.toml` was deleted after deploy: Streamlit pushes secrets into os.environ, which overrode test/offline env vars locally. `.env` holds the same values.
 
 ## Checkpoints
 
@@ -38,6 +38,17 @@ _Last updated: 2026-11-13_
 | 17 | CI (`.github/workflows/ci.yml`) | pushed, see repo Actions |
 | 18 | Git repo + GitHub push (public) | done |
 | 19 | Streamlit Community Cloud deploy | done (live URL above) |
+| 20 | Real estate recruiter UX: role templates, Egypt/Gulf hubs, developer/brokerage pickers, own-staff exclusion, live stage progress, must-have chips + tiers, filters, bulk approve, evidence table, contact queue with copy | done 2026-11-13 |
+| 21 | Theme: GFS Didot display, Times New Roman labels/data, ivory/forest/brass palette (`.streamlit/config.toml` + CSS) | done |
+| 22 | README rewrite: architecture (mermaid), stages, design patterns, file map, data model, scoring math, guardrails, results, engineering log, config, screenshots | done |
+| 23 | Per-run cost (meter snapshot at parse), "not priced" for unknown models | done |
+
+## Session 2026-11-13 (UI/UX + docs)
+
+- `app.py` rewritten for HR / recruiters / sourcing agencies: 4-step flow, live LangGraph stage streaming (`graph.stream_stages`), review cards with fit /100, tier label by missing must-haves, chips, evidence expander, editable drafts, decision radios persisted across filters, bulk approve, contact queue.
+- `talent_agent/presets.py`: 8 real estate role templates, 9 hubs, 12 developers, 5 brokerages. More hub aliases in `brief_parser.py`.
+- Verified end to end in headless Chromium (Gemini + DuckDuckGo, local SQLite); screenshots in `docs/screenshots/`.
+- `architecture.md` updated to match the implementation.
 
 ## Latest results
 

@@ -18,23 +18,23 @@ Leadership (CEO, CMO, sales directors) needs to hire for roles such as "Sales Te
  Hiring brief (UI form)
         |
         v
- [Brief parser]  Claude -> structured criteria (Pydantic) + scoring rubric
+ [Brief parser]  Claude or Gemini -> structured criteria (Pydantic) + scoring rubric (Role + Location enforced)
         |
         v
  [Query planner]  boolean / semantic queries, title synonyms (Arabic + English)
         |
         v
- [Researcher]  Tavily / Exa -> Playwright for public pages
+ [Researcher]  Tavily / Exa / DuckDuckGo -> trafilatura, Playwright for public pages (LinkedIn: snippets only)
         |
         v
- [Profile extractor]  page -> professional fields only (Pydantic)
+ [Profile extractor]  pages -> professional fields only (Pydantic), batched 10 per LLM call
         |
         v
  [Dedup]  rapidfuzz vs. ATS and previous runs
         |
         v
- [Fit scoring]  bge-m3 embedding similarity (brief vs. profile)
-                + LLM-as-judge rubric per criterion with evidence quotes
+ [Fit scoring]  bge-m3 embedding similarity (optional, local)
+                + LLM-as-judge rubric per criterion with evidence quotes (batched, grounded)
         |
         v
  [Outreach drafter]  personalized message per candidate
@@ -47,11 +47,11 @@ Leadership (CEO, CMO, sales directors) needs to hire for roles such as "Sales Te
 ```
 
 ## Tools Used
-- Agents: Claude tool use, LangGraph
-- Web: Tavily / Exa, Playwright, trafilatura
+- Agents: LangGraph (interrupt + checkpointer), Claude tool use or Gemini JSON-schema output
+- Web: Tavily / Exa, DuckDuckGo (free fallback), Playwright, trafilatura
 - Matching: bge-m3 (sentence-transformers), rapidfuzz
 - Scoring: LLM-as-judge rubric, scikit-learn (calibration of combined score)
-- Data & output: pandas, xlsxwriter, PostgreSQL
+- Data & output: pandas, xlsxwriter, PostgreSQL (Neon), SQLAlchemy
 - UI: Streamlit
 - Observability: Langfuse; quality: pytest, ruff
 
@@ -79,3 +79,6 @@ Leadership (CEO, CMO, sales directors) needs to hire for roles such as "Sales Te
 ## Deployment Plan
 - Streamlit Community Cloud (brief form, results table, Excel download).
 - Agent runs on demand from UI; secrets in Streamlit secrets.
+
+## Implementation status
+Built and deployed. See [README.md](README.md) for the implemented architecture, design patterns and results, and [CHECKPOINT.md](CHECKPOINT.md) for project state.
