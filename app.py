@@ -151,7 +151,7 @@ def apply_preset() -> None:
 
 DEFAULTS = {
     "preset": "Sales Team Lead",
-    "f_company": "Nawy",
+    "f_company": "Acme Realty",
     "f_title": "Sales Team Lead",
     "f_location": LOCATIONS[0],
     "f_seniority": "lead",
@@ -199,7 +199,7 @@ with st.sidebar:
 st.markdown(
     '<div class="ts-hero"><div class="ts-kicker">Real estate talent sourcing</div>'
     "<h1>From hiring brief to a ranked, evidence-backed shortlist</h1>"
-    "<p>Built for HR teams, recruiters and sourcing agencies hiring sales and property talent in Egypt and the Gulf. "
+    "<p>Built for real estate companies, in-house recruiters and sourcing agencies in any market. "
     "Every score quotes its evidence, duplicates of past candidates are skipped, and a recruiter approves every contact.</p></div>",
     unsafe_allow_html=True,
 )

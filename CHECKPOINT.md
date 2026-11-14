@@ -12,7 +12,7 @@ _Last updated: 2026-11-13_
 - Project #4 in `../projects-overview.md`. Design: [architecture.md](architecture.md). Usage: [README.md](README.md).
 - LLM: Gemini `gemini-3.1-flash-lite` (free tier, key in `.env` as `GEMINI_API_KEY`). Claude is still supported and wins when `ANTHROPIC_API_KEY` is set (`LLM_PROVIDER=auto`). No Anthropic key available.
 - Search: DuckDuckGo (free). Tavily/Exa used automatically if keys are added.
-- DB: Neon project `Nawy-Talent-Sourcing-Agent` (id `still-fire-15428922`, aws-eu-central-1, org `org-restless-pond-36388009`), URL in `.env` `DATABASE_URL`.
+- DB: Neon project (id `still-fire-15428922`, aws-eu-central-1, org `org-restless-pond-36388009`), URL in `.env` `DATABASE_URL`.
 - Local `.streamlit/secrets.toml` was deleted after deploy: Streamlit pushes secrets into os.environ, which overrode test/offline env vars locally. `.env` holds the same values.
 
 ## Checkpoints

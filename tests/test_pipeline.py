@@ -33,7 +33,7 @@ def brief():
         must_have=["real estate", "team leadership"],
         nice_to_have=["CRM"],
         target_companies=["Palm Hills", "SODIC"],
-        exclusions=["Nawy"],
+        exclusions=["Acme Realty"],
         min_years=5,
     )
 
@@ -64,7 +64,7 @@ def test_queries_cover_sites_companies_and_semantic(brief):
     texts = " ".join(q.text for q in qs)
     assert "site:linkedin.com/in" in texts and "Palm Hills" in texts
     assert any(q.engine == "exa" for q in qs)
-    assert '-"Nawy"' in texts
+    assert '-"Acme Realty"' in texts
     assert len({q.text for q in qs}) == len(qs)
 
 
@@ -145,17 +145,17 @@ def test_graph_end_to_end_with_interrupt(brief, monkeypatch):
         ),
         SearchHit(
             url="https://linkedin.com/in/b",
-            title="Hany Fouad - Sales Manager - Nawy | LinkedIn",
-            content="Nawy real estate",
+            title="Hany Fouad - Sales Manager - Acme Realty | LinkedIn",
+            content="Acme Realty real estate",
             source="tavily",
         ),
     ]
     monkeypatch.setattr(researcher, "search", lambda q, r: hits)
     monkeypatch.setattr(researcher, "enrich", lambda h, r: h)
     graph = g.build_graph()
-    state = g.start(graph, brief, "Nawy", "t1")
+    state = g.start(graph, brief, "Acme Realty", "t1")
     names = [c.profile.name for c in state["candidates"]]
-    assert names == ["Ahmed Samir"]  # Nawy excluded
+    assert names == ["Ahmed Samir"]  # Acme Realty excluded
     assert "excel" not in state  # paused at approval
     final = g.resume(graph, "t1", {"https://linkedin.com/in/a": {"status": "approved", "draft": "Edited message"}})
     assert final["candidates"][0].status == "edited"
@@ -235,5 +235,5 @@ def test_batched_llm_calls_map_by_index_and_fall_back(brief):
     assert role.score == 1.0
     assert len(judged[1]) == len(c.rubric)  # keyword fallback scores every criterion
 
-    cands = outreach.draft_all(brief, [ScoredCandidate(profile=p) for p in profiles], "Nawy", llm=FakeLLM())
+    cands = outreach.draft_all(brief, [ScoredCandidate(profile=p) for p in profiles], "Acme Realty", llm=FakeLLM())
     assert cands[0].outreach_draft == "LLM draft" and cands[1].outreach_draft.startswith("Hi Mona")

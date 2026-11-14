@@ -1,4 +1,4 @@
-"""Headless run: python run_cli.py brief.json --company Nawy --approve-top 10"""
+"""Headless run: python run_cli.py brief.json --company "Acme Realty" --approve-top 10"""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")  # Arabic/Cyrillic names on Windows consoles
     ap = argparse.ArgumentParser()
     ap.add_argument("brief", help="path to brief JSON (HiringBrief fields)")
-    ap.add_argument("--company", default="Nawy")
+    ap.add_argument("--company", default="Acme Realty")
     ap.add_argument("--approve-top", type=int, default=0, help="mark top N approved (still a human decision; default none)")
     ap.add_argument("--out", default="out")
     a = ap.parse_args()

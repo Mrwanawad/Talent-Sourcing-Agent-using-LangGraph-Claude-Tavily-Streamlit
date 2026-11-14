@@ -6,6 +6,6 @@
   "must_have": ["real estate sales", "team leadership", "CRM"],
   "nice_to_have": ["proptech", "Arabic and English"],
   "target_companies": ["Palm Hills", "SODIC", "Emaar Misr", "Coldwell Banker"],
-  "exclusions": ["Nawy"],
+  "exclusions": ["Acme Realty"],
   "max_candidates": 20
 }

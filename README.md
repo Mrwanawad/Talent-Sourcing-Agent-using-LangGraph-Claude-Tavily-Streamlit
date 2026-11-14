@@ -1,8 +1,12 @@
 # Talent-Sourcing Agent for Real Estate
 
-An agentic recruiting assistant for HR teams, in-house recruiters and sourcing agencies hiring sales and property talent in Egypt and the Gulf. A hiring manager types a brief such as "Sales Team Lead, Cairo". The agent plans bilingual searches, finds public professional profiles, extracts professional facts only, skips people already in the ATS or earlier runs, and scores every candidate against a weighted rubric with quoted evidence. It then drafts a personalized outreach message for each one. A recruiter approves, edits or rejects every candidate before anything leaves the system.
+An agentic recruiting assistant for any real estate company, in-house recruiting team or sourcing / outsourcing agency, in any market. It ships with presets for Egypt and the Gulf (hubs, developers, brokerages in `presets.py`), and any city, role or company list can be typed into the brief. A hiring manager types a brief such as "Sales Team Lead, Cairo". The agent plans bilingual searches, finds public professional profiles, extracts professional facts only, skips people already in the ATS or earlier runs, and scores every candidate against a weighted rubric with quoted evidence. It then drafts a personalized outreach message for each one. A recruiter approves, edits or rejects every candidate before anything leaves the system.
 
 **Live app:** https://talent-sourcing-agent-using-langgraph-claude-tavily-app-wmyt3y.streamlit.app
+
+<img src="docs/demo.gif" width="900" alt="Demo: a recruiter fills the hiring brief, the agent sources candidates with live stage progress, the recruiter opens the quoted evidence behind a score, approves two candidates, and exports the shortlist with a contact queue" />
+
+*Brief, live sourcing (about 2 minutes, sped up here), evidence review, approval, export. Regenerate with `python docs/demo/record_demo.py && bash docs/demo/make_gif.sh`.*
 
 [![ci](https://github.com/Mrwanawad/Talent-Sourcing-Agent-using-LangGraph-Claude-Tavily-Streamlit/actions/workflows/ci.yml/badge.svg)](https://github.com/Mrwanawad/Talent-Sourcing-Agent-using-LangGraph-Claude-Tavily-Streamlit/actions/workflows/ci.yml)
 
@@ -11,7 +15,7 @@ An agentic recruiting assistant for HR teams, in-house recruiters and sourcing a
 | Problem | Manual sourcing for one real estate sales role takes recruiters days to weeks: searching, copying profiles into sheets, checking the ATS for duplicates, writing messages one by one. |
 | Result | One brief in, a ranked shortlist with evidence, outreach drafts, an Excel file and an ATS import out in about 2 minutes. |
 | Human control | LangGraph `interrupt()` pauses the run before export. Nothing is contacted automatically. |
-| Privacy | Professional fields only. Emails and phone numbers are scrubbed before any LLM sees the text. No salary, personal-life or contact scraping (Egypt PDPL, Law 151/2020). LinkedIn is never fetched, only search snippets are used. |
+| Privacy | Professional fields only. Emails and phone numbers are scrubbed before any LLM sees the text. No salary, personal-life or contact scraping (built to GDPR-style data minimization; Egypt PDPL Law 151/2020 covered for the default presets). LinkedIn is never fetched, only search snippets are used. |
 | Runs on free tiers | Gemini free tier + DuckDuckGo + Neon free Postgres + Streamlit Community Cloud. Claude, Tavily and Exa plug in by adding a key. |
 
 ---
@@ -44,8 +48,8 @@ The UI follows a recruiter's real workflow in four steps: **Hiring brief, Sourci
 
 Role templates built for real estate: Sales Team Lead, Property Consultant, Sales Manager, Sales Director, Leasing / Rental Agent, Real Estate Marketing Manager, After-Sales / Customer Success, Mortgage Advisor. Each template pre-fills seniority, minimum years, must-have and nice-to-have skills. The form also has:
 
-- Egypt and Gulf real estate hubs: Cairo, New Cairo, Sheikh Zayed, 6th of October, New Administrative Capital, North Coast, Alexandria, Dubai, Riyadh.
-- Developer and brokerage pickers to source from (Palm Hills, SODIC, Emaar Misr, Mountain View, Ora, Hyde Park, Coldwell Banker, RE/MAX and more).
+- Preset real estate hubs (editable list, any city can be typed): Cairo, New Cairo, Sheikh Zayed, 6th of October, New Administrative Capital, North Coast, Alexandria, Dubai, Riyadh.
+- Developer and brokerage pickers to source from (preset examples: Palm Hills, SODIC, Emaar Misr, Mountain View, Ora, Hyde Park, Coldwell Banker, RE/MAX and more).
 - "Skip our own employees": the hiring company is excluded so the agent never pitches its own staff.
 
 ![Hiring brief](docs/screenshots/01-brief.png)
@@ -312,7 +316,7 @@ cp .env.example .env                       # add GEMINI_API_KEY (or ANTHROPIC_AP
 streamlit run app.py
 
 # headless
-python run_cli.py examples/sales_team_lead_cairo.json --company Nawy --out out
+python run_cli.py examples/sales_team_lead_cairo.json --company "Acme Realty" --out out
 
 # quality
 pytest -q
@@ -371,4 +375,4 @@ The hosted Postgres keeps dedup memory and manager decisions across restarts and
 - Snippet-only LinkedIn data is thin, so skill criteria such as "CRM" are often unevidenced and scores are relative rather than absolute. Next: an official or recruiter API source, and Tavily or Exa for richer page text.
 - Gemini free tier is shared across concurrent users (15 RPM). A paid key or Claude removes the bottleneck.
 - Eval data is synthetic. Next: label 50 real profiles and log manager decisions from real runs, then calibrate.
-- Next: Arabic-first outreach option, ATS-specific CSV mappings (Workable, Zoho Recruit, Bayt), and a scheduled re-run per open role with "new since last run" alerts.
+- Next: market packs for other regions (UK, US, EU hubs and brokerages), Arabic-first outreach option, ATS-specific CSV mappings (Workable, Zoho Recruit, Bayt), and a scheduled re-run per open role with "new since last run" alerts.

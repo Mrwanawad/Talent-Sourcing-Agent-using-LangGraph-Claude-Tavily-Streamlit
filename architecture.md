@@ -1,7 +1,7 @@
 # Talent-Sourcing Agent — Architecture
 
 ## Scenario
-Leadership (CEO, CMO, sales directors) needs to hire for roles such as "Sales Team Lead, Cairo". Manual sourcing takes weeks. The agent turns a hiring brief into search strategies, finds public professional profiles in the target region, scores fit with evidence, drafts personalized outreach, and delivers a structured shortlist. A human approves every contact.
+Any real estate company, in-house recruiting team or sourcing / outsourcing agency, in any market. Leadership (CEO, CMO, sales directors) needs to hire for roles such as "Sales Team Lead, Cairo". Manual sourcing takes weeks. The agent turns a hiring brief into search strategies, finds public professional profiles in the target region, scores fit with evidence, drafts personalized outreach, and delivers a structured shortlist. A human approves every contact.
 
 ## Input
 - Hiring brief: title, seniority, location, must-have skills, nice-to-haves, target companies, exclusions.
@@ -56,7 +56,7 @@ Leadership (CEO, CMO, sales directors) needs to hire for roles such as "Sales Te
 - Observability: Langfuse; quality: pytest, ruff
 
 ## Tools Not Used (and why)
-- Salary guessing, personal-life or contact scraping: privacy law (PDPL Law 151/2020) and platform terms.
+- Salary guessing, personal-life or contact scraping: privacy law (GDPR-style data minimization; Egypt PDPL Law 151/2020 for the default presets) and platform terms.
 - Automatic outreach sending: human approval required.
 - Logged-in scraping of professional networks: use official/recruiter APIs instead.
 
