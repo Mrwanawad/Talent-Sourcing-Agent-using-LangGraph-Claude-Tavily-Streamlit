@@ -8,3 +8,5 @@ models/
 .ruff_cache/
 docs/demo/raw.webm
 docs/demo/tmp/
+docs/demo/build/
+demo.db

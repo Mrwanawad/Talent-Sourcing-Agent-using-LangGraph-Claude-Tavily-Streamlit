@@ -4,9 +4,9 @@ An agentic recruiting assistant for any real estate company, in-house recruiting
 
 **Live app:** https://talent-sourcing-agent-using-langgraph-claude-tavily-app-wmyt3y.streamlit.app
 
-<img src="docs/demo.gif" width="900" alt="Demo: a recruiter fills the hiring brief, the agent sources candidates with live stage progress, the recruiter opens the quoted evidence behind a score, approves two candidates, and exports the shortlist with a contact queue" />
+<p align="center"><img src="docs/demo.gif" width="100%" alt="Demo: a recruiter fills the hiring brief, the agent sources candidates with live stage progress, the recruiter opens the quoted evidence behind a score, approves a candidate, and exports the shortlist with a contact queue"/></p>
 
-*Brief, live sourcing (about 2 minutes, sped up here), evidence review, approval, export. Regenerate with `python docs/demo/record_demo.py && bash docs/demo/make_gif.sh`.*
+*Brief, live sourcing (about 2 minutes, sped up here), evidence review, approval, export. Regenerate with `python docs/demo/scene.py && python ~/.claude/skills/demo-gif/scripts/compose.py docs/demo/build --out docs/demo.gif`.*
 
 [![ci](https://github.com/Mrwanawad/Talent-Sourcing-Agent-using-LangGraph-Claude-Tavily-Streamlit/actions/workflows/ci.yml/badge.svg)](https://github.com/Mrwanawad/Talent-Sourcing-Agent-using-LangGraph-Claude-Tavily-Streamlit/actions/workflows/ci.yml)
 
